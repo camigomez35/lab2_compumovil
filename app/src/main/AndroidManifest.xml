@@ -15,15 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Registrar" />
-        <activity
-            android:name=".MainActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="co.edu.udea.compumovil.gr12.lab2apprun.MainActivity" />
-        </activity>
     </application>
 
 </manifest>

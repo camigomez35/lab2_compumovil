@@ -76,6 +76,16 @@ public class UsuarioDataManager extends DataManager {
         return usuario;
     }
 
+    public void insert(Usuario usuario)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.insert(TABLE_NAME,COLUMNS[COL_NOMBRE]+","
+                +COLUMNS[COL_CONTRASENA]+","+
+                COLUMNS[COL_CORREO],getContentValues(usuario));
+        db.close();
+        helper.close();
+    }
+
     public void remove(String nombre) {
         SQLiteDatabase db = helper.getWritableDatabase();
         db.delete(TABLE_NAME,

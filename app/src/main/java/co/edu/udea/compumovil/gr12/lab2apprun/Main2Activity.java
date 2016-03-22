@@ -2,9 +2,6 @@ package co.edu.udea.compumovil.gr12.lab2apprun;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,10 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.support.v4.app.FragmentActivity;
 
 public class Main2Activity extends AppCompatActivity
-implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, OnFragmentInteractionListener {
     Button bt_ir_registro;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +32,6 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        /*bt_ir_registro = (Button) findViewById(R.id.registrar);
-        bt_ir_registro.setOnClickListener(this);*/
 
         if (findViewById(R.id.fragment_container) != null) {
 
@@ -48,16 +42,13 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
                 return;
             }
 
-            // Create a new Fragment to be placed in the activity layout
-            Fragment firstFragment = new Fragment();
 
             // In case this activity was started with special instructions from an
             // Intent, pass the Intent's extras to the fragment as arguments
-            firstFragment.setArguments(getIntent().getExtras());
 
             // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, firstFragment).commit();
+                    .add(R.id.fragment_container, IniciarSesion.newInstance()).commit();
         }
     }
 
@@ -114,14 +105,24 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.registrar:
-                Intent intent;
-                intent = new Intent(this, Registrar.class);
-                startActivity(intent);
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Bundle parametros, int accion) {
+
+    }
+
+    @Override
+    public void setFragment(int fragmentId, Bundle parametros, boolean addStack) {
+        switch (fragmentId){
+            case IniciarSesion.ID:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, IniciarSesion.newInstance()).commit();
                 break;
-
-
+            case Registrar.ID:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, Registrar.newInstance()).commit();
         }
     }
 }

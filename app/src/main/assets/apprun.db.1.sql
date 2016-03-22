@@ -1,7 +1,7 @@
 CREATE TABLE usuario(
     nombre TEXT PRIMARY KEY,
     contrasena TEXT,
-    correo TEXT,
+    correo TEXT
 );
 
 CREATE TABLE carrera(
@@ -11,10 +11,10 @@ CREATE TABLE carrera(
     lugar TEXT,
     fecha TEXT,
     telefono TEXT,
-    email TEXT,
+    email TEXT
 );
 
 CREATE TABLE usuarioporcarrera(
     nombre_usuario TEXT,
-    nombre_carrera TEXT,
+    nombre_carrera TEXT
 );
