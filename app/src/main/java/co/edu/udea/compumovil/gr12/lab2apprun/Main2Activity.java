@@ -1,6 +1,5 @@
 package co.edu.udea.compumovil.gr12.lab2apprun;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -13,9 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import co.edu.udea.compumovil.gr12.lab2apprun.model.Carrera;
+
 public class Main2Activity extends AppCompatActivity
 implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, OnFragmentInteractionListener {
-    Button bt_ir_registro;
+    public static String nombreUsuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,9 +94,11 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         if (id == R.id.nav_acercade) {
 
         } else if (id == R.id.nav_carrera) {
-
+            setFragment(Carreras.ID,null,false);
         } else if (id == R.id.nav_perfil) {
-
+            Bundle bundle = new Bundle();
+            bundle.putString("NOMBRE",nombreUsuario);
+            setFragment(Perfil.ID,bundle,false);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -123,6 +126,20 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
             case Registrar.ID:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, Registrar.newInstance()).commit();
+                break;
+            case Perfil.ID:
+                nombreUsuario = parametros.getString("NOMBRE");
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, Perfil.newInstance(parametros.getString("NOMBRE"))).commit();
+                break;
+            case Carreras.ID:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, Carreras.newInstance()).commit();
+                break;
+            case RegistrarCarrera.ID:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, RegistrarCarrera.newInstance()).commit();
+                break;
         }
     }
 }

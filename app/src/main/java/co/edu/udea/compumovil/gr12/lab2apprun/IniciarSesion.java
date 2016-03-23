@@ -1,6 +1,5 @@
 package co.edu.udea.compumovil.gr12.lab2apprun;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -43,7 +42,7 @@ public class IniciarSesion extends Fragment implements View.OnClickListener{
                     {
                         Bundle bundle = new Bundle();
                         bundle.putString("NOMBRE",usuarioById.getNombre());
-                        mListener.setFragment(Registrar.ID,bundle,false);
+                        mListener.setFragment(Perfil.ID,bundle,false);
                     }
                     else{
                         Toast.makeText(getContext(), "Error en contraseña",Toast.LENGTH_LONG);

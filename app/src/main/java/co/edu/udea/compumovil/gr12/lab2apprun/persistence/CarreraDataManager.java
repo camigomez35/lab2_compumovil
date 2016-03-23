@@ -111,19 +111,35 @@ public class CarreraDataManager extends DataManager {
         return null;
     }
 
-    public List<Carrera> getCarreras() {
-        List<Carrera> carreras = new ArrayList<>();
+    public Carrera[] getCarreras() {
+        Carrera[] carreras = new Carrera[10];
+        int i = 0;
         SQLiteDatabase db = helper.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME, COLUMNS,
                 "", new String[]{}, null, null, COLUMNS[COL_NOMBRE]);
 
         while (cursor.moveToNext()) {
-            carreras.add(getCarreraFromCursor(cursor));
+            carreras[i]=getCarreraFromCursor(cursor);
+            i++;
         }
         cursor.close();
         helper.close();
         return carreras;
+    }
+
+    public void insert(Carrera carrera)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.insert(TABLE_NAME,COLUMNS[COL_NOMBRE]+","
+                +COLUMNS[COL_DISTANCIA]+","
+                +COLUMNS[COL_DESCRIPCION]+","
+                +COLUMNS[COL_LUGAR]+","
+                +COLUMNS[COL_FECHA]+","
+                +COLUMNS[COL_TELEFONO]+","+
+                COLUMNS[COL_EMAIL],getContentValues(carrera));
+        db.close();
+        helper.close();
     }
 
 }

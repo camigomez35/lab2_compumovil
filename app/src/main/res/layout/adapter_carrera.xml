@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_run_lugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp"
+        android:text="New Text" />
+
+    <ImageView
+        android:id="@+id/iv_foto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="6dp"
+        android:src="@android:drawable/ic_menu_myplaces" />
+
+    <TextView
+        android:id="@+id/tv_run_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_toEndOf="@+id/iv_foto"
+        android:padding="20dp"
+        android:text="New Text" />
+
+    <TextView
+        android:id="@+id/tv_run_distancia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_run_nombre"
+        android:layout_gravity="center_horizontal"
+        android:layout_toEndOf="@+id/iv_foto"
+        android:padding="20dp"
+        android:text="New Text" />
+
+    <TextView
+        android:id="@+id/tv_run_fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp"
+        android:text="New Text"
+        android:layout_below="@+id/tv_run_lugar"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
