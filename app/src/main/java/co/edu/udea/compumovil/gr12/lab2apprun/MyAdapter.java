@@ -10,20 +10,22 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import co.edu.udea.compumovil.gr12.lab2apprun.model.Carrera;
 
 /**
  * Created by SA on 23/03/2016.
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private Carrera[] mDataset;
+    private ArrayList<Carrera> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(Carrera[] myDataset) {
+    public MyAdapter(ArrayList<Carrera> myDataset) {
         mDataset = myDataset;
     }
 
@@ -44,16 +46,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.tvNombre.setText(mDataset[position].getNombre());
-        holder.tvDistancia.setText(String.valueOf(mDataset[position].getDistancia()));
-        holder.tvFecha.setText(mDataset[position].getFecha());
-        holder.tvLugar.setText(mDataset[position].getLugar());
+        if(mDataset.get(position) != null) {
+            holder.tvNombre.setText(mDataset.get(position).getNombre());
+            holder.tvDistancia.setText(String.valueOf(mDataset.get(position).getDistancia()));
+            holder.tvFecha.setText(mDataset.get(position).getFecha());
+            holder.tvLugar.setText(mDataset.get(position).getLugar());
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
+    }
+
+    public String getItem(int position) {
+        return mDataset.get(position).getNombre();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -70,4 +78,5 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             tvFecha = (TextView) itemView.findViewById(R.id.tv_run_fecha);
         }
     }
+
 }

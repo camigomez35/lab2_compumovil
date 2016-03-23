@@ -9,6 +9,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Mi perfil"
         android:id="@+id/textView5"
+        android:layout_marginTop="70dp"
         android:padding="10dp"
         android:layout_gravity="center_horizontal" />
 

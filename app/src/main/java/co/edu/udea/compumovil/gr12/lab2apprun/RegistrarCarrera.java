@@ -49,12 +49,13 @@ public class RegistrarCarrera extends Fragment implements View.OnClickListener{
         switch (v.getId()){
             case R.id.bt_reg_registrar:
                 Carrera carrera = new Carrera();
-                carrera.setNombre((String) tvNombre.getText());
-                carrera.setDescripcion((String) tvDescripcion.getText());
-                carrera.setLugar((String) tvLugar.getText());
+                carrera.setNombre(String.valueOf(tvNombre.getText()));
+                carrera.setDescripcion(String.valueOf(tvDescripcion.getText()));
+                carrera.setLugar(String.valueOf(tvLugar.getText()));
                 carrera.setDistancia(Double.parseDouble(String.valueOf(tvDistancia.getText())));
-                carrera.setEmail((String) tvEmail.getText());
-                carrera.setTelefono((String)tvTelefono.getText());
+                carrera.setEmail((String.valueOf(tvEmail.getText())));
+                carrera.setTelefono(String.valueOf(tvTelefono.getText()));
+                carrera.setFecha(String.valueOf(tvFecha.getText()));
                 CarreraDataManager.getInstance(getContext()).insert(carrera);
         }
     }

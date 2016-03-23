@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,8 +112,8 @@ public class CarreraDataManager extends DataManager {
         return null;
     }
 
-    public Carrera[] getCarreras() {
-        Carrera[] carreras = new Carrera[10];
+    public ArrayList<Carrera> getCarreras() {
+        ArrayList<Carrera> carreras = new ArrayList<>();
         int i = 0;
         SQLiteDatabase db = helper.getReadableDatabase();
 
@@ -120,7 +121,8 @@ public class CarreraDataManager extends DataManager {
                 "", new String[]{}, null, null, COLUMNS[COL_NOMBRE]);
 
         while (cursor.moveToNext()) {
-            carreras[i]=getCarreraFromCursor(cursor);
+            Log.e("carrera", "" + i);
+            carreras.add(getCarreraFromCursor(cursor));
             i++;
         }
         cursor.close();
@@ -131,13 +133,13 @@ public class CarreraDataManager extends DataManager {
     public void insert(Carrera carrera)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        db.insert(TABLE_NAME,COLUMNS[COL_NOMBRE]+","
-                +COLUMNS[COL_DISTANCIA]+","
-                +COLUMNS[COL_DESCRIPCION]+","
-                +COLUMNS[COL_LUGAR]+","
-                +COLUMNS[COL_FECHA]+","
-                +COLUMNS[COL_TELEFONO]+","+
-                COLUMNS[COL_EMAIL],getContentValues(carrera));
+        db.insert(TABLE_NAME, COLUMNS[COL_NOMBRE] + ","
+                + COLUMNS[COL_DISTANCIA] + ","
+                + COLUMNS[COL_DESCRIPCION] + ","
+                + COLUMNS[COL_LUGAR] + ","
+                + COLUMNS[COL_FECHA] + ","
+                + COLUMNS[COL_TELEFONO] + "," +
+                COLUMNS[COL_EMAIL], getContentValues(carrera));
         db.close();
         helper.close();
     }

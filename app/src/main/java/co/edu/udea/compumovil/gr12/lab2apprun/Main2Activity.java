@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import co.edu.udea.compumovil.gr12.lab2apprun.model.Carrera;
 
@@ -79,7 +80,8 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            nombreUsuario = "";
+            Toast.makeText(getBaseContext(), "Sesion terminada",Toast.LENGTH_LONG);
         }
 
         return super.onOptionsItemSelected(item);
@@ -96,9 +98,20 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         } else if (id == R.id.nav_carrera) {
             setFragment(Carreras.ID,null,false);
         } else if (id == R.id.nav_perfil) {
-            Bundle bundle = new Bundle();
-            bundle.putString("NOMBRE",nombreUsuario);
-            setFragment(Perfil.ID,bundle,false);
+            if(nombreUsuario != null ) {
+                if(nombreUsuario.equals("")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("NOMBRE", nombreUsuario);
+                    setFragment(Perfil.ID, bundle, false);
+                }
+                else{
+                    Toast.makeText(getBaseContext(), "Por favor inicie sesión", Toast.LENGTH_LONG);
+                    setFragment(IniciarSesion.ID,null,false);
+                }
+            }else{
+                Toast.makeText(getBaseContext(), "Por favor inicie sesión", Toast.LENGTH_LONG);
+                setFragment(IniciarSesion.ID,null,false);
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
