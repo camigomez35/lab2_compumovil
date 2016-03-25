@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.w3c.dom.UserDataHandler;
 
@@ -21,9 +22,12 @@ public class Registrar extends Fragment implements View.OnClickListener{
     public static final int ID = 2;
     Button bt_registrar;
     EditText et_nombre, et_email,et_contrasena;
+    private OnFragmentInteractionListener mListener;
+
     public static Registrar newInstance() {
         return new Registrar();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_registrar, container, false);
@@ -37,11 +41,19 @@ public class Registrar extends Fragment implements View.OnClickListener{
                 String nombre = String.valueOf(et_nombre.getText());
                 String contrasena = String.valueOf(et_contrasena.getText());
                 String email = String.valueOf(et_email.getText());
+
+                if(nombre.isEmpty() || contrasena.isEmpty() || email.isEmpty()){
+                    Toast.makeText(getContext(), R.string.falta_dato, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Usuario usuario = new Usuario();
                 usuario.setNombre(nombre);
                 usuario.setContrasena(contrasena);
                 usuario.setCorreo(email);
                 UsuarioDataManager.getInstance(v.getContext()).insert(usuario);
+
+                mListener.setFragment(IniciarSesion.ID, null, false);
                 break;
         }
     }

@@ -94,7 +94,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         int id = item.getItemId();
 
         if (id == R.id.nav_acercade) {
-
+            setFragment(Acercade.ID, null, false);
         } else if (id == R.id.nav_carrera) {
             setFragment(Carreras.ID,null,false);
         } else if (id == R.id.nav_perfil) {
@@ -105,7 +105,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
                     setFragment(Perfil.ID, bundle, false);
                 }
                 else{
-                    Toast.makeText(getBaseContext(), "Por favor inicie sesión", Toast.LENGTH_LONG);
+                    Toast.makeText(getBaseContext(), "Por favor inicie sesión", Toast.LENGTH_LONG).show();
                     setFragment(IniciarSesion.ID,null,false);
                 }
             }else{
@@ -152,6 +152,10 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
             case RegistrarCarrera.ID:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, RegistrarCarrera.newInstance()).commit();
+                break;
+            case Acercade.ID:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, Acercade.newInstance()).commit();
                 break;
         }
     }

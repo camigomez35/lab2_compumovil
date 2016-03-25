@@ -12,40 +12,43 @@
 
         <EditText
             android:id="@+id/tv_reg_nombre"
+            android:hint="@string/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
         <EditText
             android:id="@+id/tv_reg_descripcion"
+            android:hint="@string/descripcion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
         <EditText
             android:id="@+id/tv_reg_distancia"
+            android:hint="@string/distancia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:ems="10"
             android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/tv_reg_lugar"
+            android:hint="@string/lugar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal" />
 
-        <EditText
+        <DatePicker
             android:id="@+id/tv_reg_fecha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:ems="10"
-            android:inputType="date" />
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner" />
 
         <EditText
             android:id="@+id/tv_reg_telefono"
+            android:hint="@string/telefono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -54,6 +57,7 @@
 
         <EditText
             android:id="@+id/tv_reg_email"
+            android:hint="@string/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -65,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Registrar" />
+            android:text="@string/registrar" />
 
 
     </LinearLayout>

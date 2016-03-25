@@ -20,37 +20,14 @@ public class IniciarSesion extends Fragment implements View.OnClickListener{
     Button bt_registrar,bt_sesion;
     EditText et_user, et_pass;
     private OnFragmentInteractionListener mListener;
-    public static IniciarSesion newInstance() {
+
+    public static IniciarSesion newInstance(){
         return new IniciarSesion();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_iniciar, container, false);
     }
-
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.bt_registrar:
-                mListener.setFragment(Registrar.ID,null,false);
-                break;
-            case R.id.sesion:
-                String user = String.valueOf(et_user.getText());
-                String pass = String.valueOf(et_pass.getText());
-                Usuario usuarioById = UsuarioDataManager.getInstance(getContext()).getUsuarioById(user);
-                if(usuarioById!= null){
-                    if(pass.equals(usuarioById.getContrasena()))
-                    {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("NOMBRE",usuarioById.getNombre());
-                        mListener.setFragment(Perfil.ID,bundle,false);
-                    }
-                    else{
-                        Toast.makeText(getContext(), "Error en contraseña",Toast.LENGTH_LONG);
-                    }
-                }
-        }
-    }
-
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -62,5 +39,39 @@ public class IniciarSesion extends Fragment implements View.OnClickListener{
         et_pass =(EditText) view.findViewById(R.id.password);
         et_user = (EditText) view.findViewById(R.id.user);
         mListener = (OnFragmentInteractionListener) getActivity();
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.bt_registrar:
+                mListener.setFragment(Registrar.ID,null,false);
+                break;
+            case R.id.sesion:
+                String user = et_user.getText().toString();
+                String pass = et_pass.getText().toString();
+
+                if(pass.isEmpty()){
+                    Toast.makeText(getContext(), R.string.falta_dato, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(user.isEmpty()){
+                    Toast.makeText(getContext(), R.string.falta_dato, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                Usuario usuarioById = UsuarioDataManager.getInstance(getContext()).getUsuarioById(user);
+
+                if(usuarioById!= null){
+                    if(pass.equals(usuarioById.getContrasena()))
+                    {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("NOMBRE",usuarioById.getNombre());
+                        mListener.setFragment(Perfil.ID,bundle,false);
+                    }
+                    else{
+                        Toast.makeText(getContext(), "Error en contraseña",Toast.LENGTH_LONG).show();
+                    }
+                }
+        }
     }
 }

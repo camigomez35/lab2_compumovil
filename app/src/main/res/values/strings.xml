@@ -10,4 +10,22 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="falta_dato">Falta dato</string>
+
+    <string name="nombre">Nombre</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="distancia">Distancia</string>
+    <string name="lugar">Lugar</string>
+    <string name="telefono">Telefono</string>
+
+    <string name="registrar">Registrar</string>
+    <string name="datos">Proyecto realizado para la segunda practica de Computación Movil</string>
+    <string name="realizado">Realizada por: </string>
+    <string name="camila">Maria Camila Gomez Restrepo</string>
+    <string name="jhonatan">Jhonatan</string>
+    <string name="samuel">Samuel Savid Arenas Pareja</string>
+    <string name="docente">Docente:</string>
+    <string name="profesor">Sebastian Guzman Obando</string>
+
+
 </resources>

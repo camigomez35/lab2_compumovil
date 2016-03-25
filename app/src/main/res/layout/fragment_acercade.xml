@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:layout_weight="9"></LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="30dp"
+            android:textStyle="bold|italic"
+            android:id="@+id/app_name"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/datos"
+            android:id="@+id/datos"
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:layout_below="@+id/app_name"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/realizado"
+            android:id="@+id/realizado"
+            android:textSize="25dp"
+            android:textStyle="bold|italic"
+            android:layout_below="@+id/datos"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/camila"
+            android:id="@+id/textView3"
+            android:autoText="false"
+            android:elegantTextHeight="false"
+            android:textSize="20dp"
+            android:layout_below="@id/realizado"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/samuel"
+            android:id="@+id/textView4"
+            android:textSize="20dp"
+            android:layout_below="@id/textView3"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/jhonatan"
+            android:id="@+id/textView5"
+            android:textSize="20dp"
+            android:layout_below="@id/textView4"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/docente"
+            android:id="@+id/docente"
+            android:textSize="25dp"
+            android:textStyle="bold|italic"
+            android:layout_below="@+id/textView5"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profesor"
+            android:id="@+id/profesor"
+            android:autoText="false"
+            android:elegantTextHeight="false"
+            android:textSize="20dp"
+            android:layout_below="@id/docente"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

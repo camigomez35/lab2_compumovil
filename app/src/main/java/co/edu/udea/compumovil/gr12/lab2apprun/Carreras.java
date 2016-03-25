@@ -23,15 +23,13 @@ import co.edu.udea.compumovil.gr12.lab2apprun.persistence.UsuarioDataManager;
  * Created by SA on 23/03/2016.
  */
 public class Carreras extends Fragment implements View.OnClickListener{
-
     public static final int ID = 4;
     RecyclerView rv;
     FloatingActionButton floatingActionButton;
-    private RecyclerView.LayoutManager mLayoutManager
-            ;
+    private RecyclerView.LayoutManager mLayoutManager;
     private OnFragmentInteractionListener mListener;
 
-    public static Carreras newInstance() {
+    public static Carreras newInstance(){
         return new Carreras();
     }
 
@@ -45,10 +43,13 @@ public class Carreras extends Fragment implements View.OnClickListener{
         super.onViewCreated(view, savedInstanceState);
         rv = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.agregar);
+
         floatingActionButton.setOnClickListener(this);
         mLayoutManager = new LinearLayoutManager(getContext());
+
         rv.setLayoutManager(mLayoutManager);
         ArrayList<Carrera> carreras = CarreraDataManager.getInstance(getContext()).getCarreras();
+
         MyAdapter adapter = new MyAdapter(carreras);
         rv.setAdapter(adapter);
         mListener = (OnFragmentInteractionListener) getActivity();
