@@ -1,6 +1,7 @@
 package co.edu.udea.compumovil.gr12.lab2apprun;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,10 +15,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import co.edu.udea.compumovil.gr12.lab2apprun.model.Carrera;
+import co.edu.udea.compumovil.gr12.lab2apprun.model.Usuario;
+import co.edu.udea.compumovil.gr12.lab2apprun.persistence.UsuarioDataManager;
 
 public class Main2Activity extends AppCompatActivity
 implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, OnFragmentInteractionListener {
-    public static String nombreUsuario;
+    public static String nombreUsuario = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +50,10 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 
             // In case this activity was started with special instructions from an
             // Intent, pass the Intent's extras to the fragment as arguments
-
+            sesionIniciada();
             // Add the fragment to the 'fragment_container' FrameLayout
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, IniciarSesion.newInstance()).commit();
+
+
         }
     }
 
@@ -68,6 +71,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main2, menu);
+
         return true;
     }
 
@@ -80,9 +84,25 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            nombreUsuario = "";
-            Toast.makeText(getBaseContext(), "Sesion terminada",Toast.LENGTH_LONG);
+            Log.e("Prueba nombre", "..."+ nombreUsuario +"...");
+            Usuario usuario = UsuarioDataManager.getInstance(this).getUsuarioById(nombreUsuario);
+            if(usuario != null)
+            {
+                usuario.setSesion(0);
+                UsuarioDataManager.getInstance(this).update(usuario);
+                nombreUsuario = "";
+                Toast.makeText(this, "Sesion terminada",Toast.LENGTH_LONG).show();
+
+            }
+            else {
+                Toast.makeText(this, "No hay sesion iniciada",Toast.LENGTH_LONG).show();
+            }
+
+
+
         }
+
+        sesionIniciada();
 
         return super.onOptionsItemSelected(item);
     }
@@ -98,21 +118,8 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         } else if (id == R.id.nav_carrera) {
             setFragment(Carreras.ID,null,false);
         } else if (id == R.id.nav_perfil) {
-            if(nombreUsuario != null ) {
-                if(nombreUsuario.equals("")) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("NOMBRE", nombreUsuario);
-                    setFragment(Perfil.ID, bundle, false);
-                }
-                else{
-                    Toast.makeText(getBaseContext(), "Por favor inicie sesión", Toast.LENGTH_LONG).show();
-                    setFragment(IniciarSesion.ID,null,false);
-                }
-            }else{
-                Toast.makeText(getBaseContext(), "Por favor inicie sesión", Toast.LENGTH_LONG);
-                setFragment(IniciarSesion.ID,null,false);
+            sesionIniciada();
             }
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -157,6 +164,19 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, Acercade.newInstance()).commit();
                 break;
+        }
+    }
+
+    public void sesionIniciada()
+    {
+        Usuario usuario = UsuarioDataManager.getInstance(this).sesionInciada();
+        if(usuario != null){
+            Bundle bundle = new Bundle();
+            bundle.putString("NOMBRE",usuario.getNombre());
+            setFragment(Perfil.ID,bundle,false);
+        }
+        else{
+            setFragment(IniciarSesion.ID,null,false);
         }
     }
 }

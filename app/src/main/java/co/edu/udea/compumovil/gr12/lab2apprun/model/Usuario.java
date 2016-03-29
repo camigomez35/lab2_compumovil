@@ -10,8 +10,10 @@ public class Usuario {
         private String contrasena;
         private String correo;
         private List<Carrera> carreras;
+        private int sesion;
 
     public Usuario() {
+        sesion = 0;
     }
 
     public String getNombre() {
@@ -44,5 +46,13 @@ public class Usuario {
 
     public void setCarreras(List<Carrera> carreras) {
         this.carreras = carreras;
+    }
+
+    public int getSesion() {
+        return sesion;
+    }
+
+    public void setSesion(int sesion) {
+        this.sesion = sesion;
     }
 }

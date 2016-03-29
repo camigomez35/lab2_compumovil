@@ -1,7 +1,8 @@
 CREATE TABLE usuario(
     nombre TEXT PRIMARY KEY,
     contrasena TEXT,
-    correo TEXT
+    correo TEXT,
+    sesion  INTEGER
 );
 
 CREATE TABLE carrera(

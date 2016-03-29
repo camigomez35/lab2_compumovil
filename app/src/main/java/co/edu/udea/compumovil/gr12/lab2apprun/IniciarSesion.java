@@ -64,13 +64,19 @@ public class IniciarSesion extends Fragment implements View.OnClickListener{
                 if(usuarioById!= null){
                     if(pass.equals(usuarioById.getContrasena()))
                     {
+                        usuarioById.setSesion(1);
+                        UsuarioDataManager.getInstance(getContext()).update(usuarioById);
                         Bundle bundle = new Bundle();
                         bundle.putString("NOMBRE",usuarioById.getNombre());
                         mListener.setFragment(Perfil.ID,bundle,false);
                     }
                     else{
                         Toast.makeText(getContext(), "Error en contraseña",Toast.LENGTH_LONG).show();
+                        return;
                     }
+                }else{
+                    Toast.makeText(getContext(), "El usuario no existe",Toast.LENGTH_LONG).show();
+                    return;
                 }
         }
     }

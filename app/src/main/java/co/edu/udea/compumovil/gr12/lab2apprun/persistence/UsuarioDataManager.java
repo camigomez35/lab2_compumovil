@@ -20,13 +20,15 @@ public class UsuarioDataManager extends DataManager {
             COL_NOMBRE = 0,
             COL_CONTRASENA = 1,
             COL_CORREO = 2,
+            COL_SESION = 3,
             COL_NOMBRE_USUARIO = 0,
             COL_NOMBRE_CARRERA = 1;
 
     public static final String[] COLUMNS = {
             "nombre",
             "contrasena",
-            "correo"
+            "correo",
+            "sesion"
     };
 
     public static final String[] COLUMNSUXC = {
@@ -49,11 +51,12 @@ public class UsuarioDataManager extends DataManager {
         UsuarioDataManager.instance = instance;
     }
 
-    private Usuario getComidaFromCursor(Cursor cursor) {
+    private Usuario getUsuarioFromCursor(Cursor cursor) {
         Usuario usuario = new Usuario();
         usuario.setContrasena(cursor.getString(COL_CONTRASENA));
         usuario.setNombre(cursor.getString(COL_NOMBRE));
         usuario.setCorreo(cursor.getString(COL_CORREO));
+        usuario.setSesion(cursor.getInt(COL_SESION));
         return usuario;
     }
 
@@ -62,6 +65,7 @@ public class UsuarioDataManager extends DataManager {
         cv.put(COLUMNS[COL_CONTRASENA], usuario.getContrasena());
         cv.put(COLUMNS[COL_NOMBRE], usuario.getNombre());
         cv.put(COLUMNS[COL_CORREO], usuario.getCorreo());
+        cv.put(COLUMNS[COL_SESION], usuario.getSesion());
         return cv;
     }
 
@@ -81,7 +85,9 @@ public class UsuarioDataManager extends DataManager {
         SQLiteDatabase db = helper.getWritableDatabase();
         db.insert(TABLE_NAME,COLUMNS[COL_NOMBRE]+","
                 +COLUMNS[COL_CONTRASENA]+","+
-                COLUMNS[COL_CORREO],getContentValues(usuario));
+                COLUMNS[COL_CORREO]+","+
+                COLUMNS[COL_SESION]
+                ,getContentValues(usuario));
         db.close();
         helper.close();
     }
@@ -102,7 +108,7 @@ public class UsuarioDataManager extends DataManager {
                 "nombre = ?", new String[]{nombre}, null, null, COLUMNS[COL_NOMBRE]);
 
         if (cursor.moveToNext()) {
-            return getComidaFromCursor(cursor);
+            return getUsuarioFromCursor(cursor);
         }
 
         cursor.close();
@@ -123,6 +129,19 @@ public class UsuarioDataManager extends DataManager {
         db.insert(TABLE_UXC, null, getContentValues(usuario, carrera));
         db.close();
     }
+    public Usuario sesionInciada() {
+        SQLiteDatabase db = helper.getReadableDatabase();
 
+        Cursor cursor = db.query(TABLE_NAME, COLUMNS,
+                "sesion = ?", new String[]{String.valueOf(1)}, null, null, COLUMNS[COL_SESION]);
+
+        if (cursor.moveToNext()) {
+            return getUsuarioFromCursor(cursor);
+        }
+
+        cursor.close();
+        helper.close();
+        return null;
+    }
 
 }

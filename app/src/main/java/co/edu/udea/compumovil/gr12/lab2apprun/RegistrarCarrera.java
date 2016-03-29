@@ -47,6 +47,7 @@ public class RegistrarCarrera extends Fragment implements View.OnClickListener{
         tvEmail = (TextView) view.findViewById(R.id.tv_reg_email);
         btRegistar = (Button) view.findViewById(R.id.bt_reg_registrar);
         btRegistar.setOnClickListener(this);
+        mListener = (OnFragmentInteractionListener) getActivity();
 
     }
 

@@ -21,7 +21,7 @@ import co.edu.udea.compumovil.gr12.lab2apprun.persistence.UsuarioDataManager;
 public class Registrar extends Fragment implements View.OnClickListener{
     public static final int ID = 2;
     Button bt_registrar;
-    EditText et_nombre, et_email,et_contrasena;
+    EditText et_nombre, et_email,et_contrasena, et_contrasena2;
     private OnFragmentInteractionListener mListener;
 
     public static Registrar newInstance() {
@@ -41,19 +41,23 @@ public class Registrar extends Fragment implements View.OnClickListener{
                 String nombre = String.valueOf(et_nombre.getText());
                 String contrasena = String.valueOf(et_contrasena.getText());
                 String email = String.valueOf(et_email.getText());
+                String contrasena2 = String.valueOf(et_contrasena2.getText());
 
-                if(nombre.isEmpty() || contrasena.isEmpty() || email.isEmpty()){
+                if(nombre.isEmpty() || contrasena.isEmpty() || contrasena2.isEmpty() || email.isEmpty()){
                     Toast.makeText(getContext(), R.string.falta_dato, Toast.LENGTH_LONG).show();
                     return;
                 }
-
-                Usuario usuario = new Usuario();
-                usuario.setNombre(nombre);
-                usuario.setContrasena(contrasena);
-                usuario.setCorreo(email);
-                UsuarioDataManager.getInstance(v.getContext()).insert(usuario);
-
-                mListener.setFragment(IniciarSesion.ID, null, false);
+                if (contrasena.equals(contrasena2)){
+                    Usuario usuario = new Usuario();
+                    usuario.setNombre(nombre);
+                    usuario.setContrasena(contrasena);
+                    usuario.setCorreo(email);
+                    UsuarioDataManager.getInstance(v.getContext()).insert(usuario);
+                    mListener.setFragment(IniciarSesion.ID, null, false);
+                }else {
+                    Toast.makeText(getContext(), R.string.contrasenas_no_iguales, Toast.LENGTH_LONG).show();
+                    return;
+                }
                 break;
         }
     }
@@ -67,5 +71,7 @@ public class Registrar extends Fragment implements View.OnClickListener{
         et_nombre = (EditText) view.findViewById(R.id.et_nombre);
         et_contrasena = (EditText) view.findViewById(R.id.et_contrasena);
         et_email = (EditText) view.findViewById(R.id.et_email);
+        et_contrasena2 = (EditText) view.findViewById(R.id.et_password2);
+        mListener = (OnFragmentInteractionListener) getActivity();
     }
 }

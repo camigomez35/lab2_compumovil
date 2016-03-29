@@ -21,11 +21,12 @@
     <string name="registrar">Registrar</string>
     <string name="datos">Proyecto realizado para la segunda practica de Computación Movil</string>
     <string name="realizado">Realizada por: </string>
-    <string name="camila">Maria Camila Gomez Restrepo</string>
-    <string name="jhonatan">Jhonatan</string>
-    <string name="samuel">Samuel Savid Arenas Pareja</string>
+    <string name="camila">Maria Camila Gomez</string>
+    <string name="jhonatan">Jonathan Damian Munera</string>
+    <string name="samuel">Samuel David Arenas</string>
     <string name="docente">Docente:</string>
     <string name="profesor">Sebastian Guzman Obando</string>
+    <string name="contrasenas_no_iguales">Las contraseñas no son iguales</string>
 
 
 </resources>
