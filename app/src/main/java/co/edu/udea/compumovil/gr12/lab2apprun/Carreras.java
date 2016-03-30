@@ -8,21 +8,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import co.edu.udea.compumovil.gr12.lab2apprun.listener.OnFragmentInteractionListener;
+import co.edu.udea.compumovil.gr12.lab2apprun.listener.OnItemCarreraListener;
 import co.edu.udea.compumovil.gr12.lab2apprun.model.Carrera;
-import co.edu.udea.compumovil.gr12.lab2apprun.model.Usuario;
 import co.edu.udea.compumovil.gr12.lab2apprun.persistence.CarreraDataManager;
-import co.edu.udea.compumovil.gr12.lab2apprun.persistence.UsuarioDataManager;
 
 /**
  * Created by SA on 23/03/2016.
  */
-public class Carreras extends Fragment implements View.OnClickListener{
+public class Carreras extends Fragment implements View.OnClickListener, OnItemCarreraListener{
     public static final int ID = 4;
     RecyclerView rv;
     FloatingActionButton floatingActionButton;
@@ -52,6 +50,7 @@ public class Carreras extends Fragment implements View.OnClickListener{
 
         MyAdapter adapter = new MyAdapter(carreras);
         rv.setAdapter(adapter);
+        rv.setOnClickListener(this);
         mListener = (OnFragmentInteractionListener) getActivity();
     }
 
@@ -62,7 +61,25 @@ public class Carreras extends Fragment implements View.OnClickListener{
                 mListener.setFragment(RegistrarCarrera.ID,null,false);
                 break;
             case R.id.my_recycler_view:
-
+                Toast.makeText(getContext(), "carrera",Toast.LENGTH_LONG).show();
+                break;
         }
+    }
+
+    @Override
+    public void onItemClick(Carrera carrera, View view, int position) {
+        switch (view.getId()){
+            case R.id.my_recycler_view:
+                Toast.makeText(getContext(), "carrera" + carrera,Toast.LENGTH_LONG).show();
+                break;
+        }
+
+
+
+    }
+
+    @Override
+    public void onItemLongClick(Carrera carrera, View view, int position) {
+
     }
 }

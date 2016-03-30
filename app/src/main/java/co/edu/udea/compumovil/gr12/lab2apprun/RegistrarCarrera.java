@@ -3,7 +3,6 @@ package co.edu.udea.compumovil.gr12.lab2apprun;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import co.edu.udea.compumovil.gr12.lab2apprun.listener.OnFragmentInteractionListener;
 import co.edu.udea.compumovil.gr12.lab2apprun.model.Carrera;
 import co.edu.udea.compumovil.gr12.lab2apprun.persistence.CarreraDataManager;
 

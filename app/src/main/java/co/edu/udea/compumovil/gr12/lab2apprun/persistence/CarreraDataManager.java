@@ -55,8 +55,8 @@ public class CarreraDataManager extends DataManager {
 
     private Carrera getCarreraFromCursor(Cursor cursor) {
         Carrera carrera = new Carrera();
-        carrera.setDescripcion(cursor.getString(COL_DESCRIPCION));
         carrera.setNombre(cursor.getString(COL_NOMBRE));
+        carrera.setDescripcion(cursor.getString(COL_DESCRIPCION));
         carrera.setDistancia(cursor.getDouble(COL_DISTANCIA));
         carrera.setEmail(cursor.getString(COL_EMAIL));
         carrera.setFecha(cursor.getString(COL_FECHA));

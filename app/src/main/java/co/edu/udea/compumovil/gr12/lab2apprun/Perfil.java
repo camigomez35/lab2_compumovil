@@ -14,7 +14,7 @@ import co.edu.udea.compumovil.gr12.lab2apprun.persistence.UsuarioDataManager;
 /**
  * Created by SA on 22/03/2016.
  */
-public class Perfil extends Fragment implements View.OnClickListener{
+public class Perfil extends Fragment{
     public static final int ID = 3;
     static String nombreUsuario;
     TextView tv_nombre, tv_correo;
@@ -39,8 +39,4 @@ public class Perfil extends Fragment implements View.OnClickListener{
         tv_nombre.setText(usuario.getNombre());
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
 }

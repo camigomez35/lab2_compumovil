@@ -2,7 +2,6 @@ package co.edu.udea.compumovil.gr12.lab2apprun;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.w3c.dom.UserDataHandler;
-
+import co.edu.udea.compumovil.gr12.lab2apprun.listener.OnFragmentInteractionListener;
 import co.edu.udea.compumovil.gr12.lab2apprun.model.Usuario;
 import co.edu.udea.compumovil.gr12.lab2apprun.persistence.UsuarioDataManager;
 
@@ -48,12 +46,18 @@ public class Registrar extends Fragment implements View.OnClickListener{
                     return;
                 }
                 if (contrasena.equals(contrasena2)){
-                    Usuario usuario = new Usuario();
-                    usuario.setNombre(nombre);
-                    usuario.setContrasena(contrasena);
-                    usuario.setCorreo(email);
-                    UsuarioDataManager.getInstance(v.getContext()).insert(usuario);
-                    mListener.setFragment(IniciarSesion.ID, null, false);
+                    Usuario usuario = UsuarioDataManager.getInstance(v.getContext()).getUsuarioById(nombre);
+                    if (usuario!=null){
+                        Toast.makeText(getContext(), "Usuario ya existente", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                        usuario=new Usuario();
+                        usuario.setNombre(nombre);
+                        usuario.setContrasena(contrasena);
+                        usuario.setCorreo(email);
+                        UsuarioDataManager.getInstance(v.getContext()).insert(usuario);
+                        mListener.setFragment(IniciarSesion.ID, null, false);
+                        Toast.makeText(getContext(), "Usuario creado", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getContext(), R.string.contrasenas_no_iguales, Toast.LENGTH_LONG).show();
                     return;

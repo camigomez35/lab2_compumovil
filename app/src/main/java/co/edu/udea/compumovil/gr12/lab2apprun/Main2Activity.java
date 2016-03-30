@@ -1,6 +1,8 @@
 package co.edu.udea.compumovil.gr12.lab2apprun;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -11,15 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
 
-import co.edu.udea.compumovil.gr12.lab2apprun.model.Carrera;
+import co.edu.udea.compumovil.gr12.lab2apprun.listener.OnFragmentInteractionListener;
 import co.edu.udea.compumovil.gr12.lab2apprun.model.Usuario;
 import co.edu.udea.compumovil.gr12.lab2apprun.persistence.UsuarioDataManager;
 
 public class Main2Activity extends AppCompatActivity
-implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, OnFragmentInteractionListener {
+implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener {
     public static String nombreUsuario = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 
             // In case this activity was started with special instructions from an
             // Intent, pass the Intent's extras to the fragment as arguments
-            sesionIniciada();
+            sesionIniciada(R.id.nav_perfil);
             // Add the fragment to the 'fragment_container' FrameLayout
 
 
@@ -91,19 +92,13 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
                 usuario.setSesion(0);
                 UsuarioDataManager.getInstance(this).update(usuario);
                 nombreUsuario = "";
-                Toast.makeText(this, "Sesion terminada",Toast.LENGTH_LONG).show();
-
+                Toast.makeText(this, "Sesion terminada",Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(this, "No hay sesion iniciada",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "No hay sesion iniciada",Toast.LENGTH_SHORT).show();
             }
-
-
-
         }
-
-        sesionIniciada();
-
+        sesionIniciada(id);
         return super.onOptionsItemSelected(item);
     }
 
@@ -113,22 +108,11 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_acercade) {
-            setFragment(Acercade.ID, null, false);
-        } else if (id == R.id.nav_carrera) {
-            setFragment(Carreras.ID,null,false);
-        } else if (id == R.id.nav_perfil) {
-            sesionIniciada();
-            }
+        sesionIniciada(id);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     @Override
@@ -138,45 +122,54 @@ implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 
     @Override
     public void setFragment(int fragmentId, Bundle parametros, boolean addStack) {
+        Fragment f = null;
         switch (fragmentId){
             case IniciarSesion.ID:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, IniciarSesion.newInstance()).commit();
+                f = IniciarSesion.newInstance();
                 break;
             case Registrar.ID:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, Registrar.newInstance()).commit();
+                f =  Registrar.newInstance();
                 break;
             case Perfil.ID:
                 nombreUsuario = parametros.getString("NOMBRE");
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, Perfil.newInstance(parametros.getString("NOMBRE"))).commit();
+                f = Perfil.newInstance(parametros.getString("NOMBRE"));
                 break;
             case Carreras.ID:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, Carreras.newInstance()).commit();
+                f =Carreras.newInstance();
                 break;
             case RegistrarCarrera.ID:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, RegistrarCarrera.newInstance()).commit();
+                f=RegistrarCarrera.newInstance();
                 break;
             case Acercade.ID:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, Acercade.newInstance()).commit();
+                f = Acercade.newInstance();
+                break;
+            case InfoCarrera.ID:
+                f = InfoCarrera.newInstance();
                 break;
         }
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, f).commit();
     }
 
-    public void sesionIniciada()
+    public void sesionIniciada(int id)
     {
         Usuario usuario = UsuarioDataManager.getInstance(this).sesionInciada();
         if(usuario != null){
-            Bundle bundle = new Bundle();
-            bundle.putString("NOMBRE",usuario.getNombre());
-            setFragment(Perfil.ID,bundle,false);
-        }
-        else{
+            if (id == R.id.nav_acercade) {
+                setFragment(Acercade.ID, null, false);
+            }else if (id == R.id.nav_carrera) {
+                setFragment(Carreras.ID,null,false);
+            }else if(id == R.id.nav_perfil){
+                Bundle bundle = new Bundle();
+                bundle.putString("NOMBRE",usuario.getNombre());
+                setFragment(Perfil.ID,bundle,false);
+            }
+        }else if (id == R.id.nav_acercade) {
+            setFragment(Acercade.ID, null, false);
+        }else{
             setFragment(IniciarSesion.ID,null,false);
+            Toast.makeText(this, "Por favor inicie sesion", Toast.LENGTH_SHORT).show();
+            return;
         }
     }
 }
