@@ -15,6 +15,8 @@
     <string name="nombre">Nombre</string>
     <string name="descripcion">Descripcion</string>
     <string name="distancia">Distancia</string>
+    <string name="fecha">Fecha</string>
+    <string name="info">Información de contacto: </string>
     <string name="lugar">Lugar</string>
     <string name="telefono">Telefono</string>
 
@@ -28,5 +30,8 @@
     <string name="profesor">Sebastian Guzman Obando</string>
     <string name="contrasenas_no_iguales">Las contraseñas no son iguales</string>
 
-
+    <!--Mensajes-->
+    <string name="inicieSesion">Por favor inicie sesion</string>
+    <string name="sesionTerminada">Se ha terminado sesion</string>
+    <string name="noInicio">No se tiene sesion iniciada</string>
 </resources>

@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class Carreras extends Fragment implements View.OnClickListener, OnItemCa
         rv.setLayoutManager(mLayoutManager);
         ArrayList<Carrera> carreras = CarreraDataManager.getInstance(getContext()).getCarreras();
 
-        MyAdapter adapter = new MyAdapter(carreras);
+        MyAdapter adapter = new MyAdapter(carreras, this);
         rv.setAdapter(adapter);
         rv.setOnClickListener(this);
         mListener = (OnFragmentInteractionListener) getActivity();
@@ -68,14 +69,9 @@ public class Carreras extends Fragment implements View.OnClickListener, OnItemCa
 
     @Override
     public void onItemClick(Carrera carrera, View view, int position) {
-        switch (view.getId()){
-            case R.id.my_recycler_view:
-                Toast.makeText(getContext(), "carrera" + carrera,Toast.LENGTH_LONG).show();
-                break;
-        }
-
-
-
+        Bundle datos = new Bundle();
+        datos.putString("NOMBRE", carrera.getNombre());
+        mListener.setFragment(InfoCarrera.ID, datos, true);
     }
 
     @Override

@@ -19,9 +19,13 @@ import co.edu.udea.compumovil.gr12.lab2apprun.persistence.UsuarioDataManager;
 public class InfoCarrera extends Fragment {
     public static final int ID = 7;
 
+    public static String nombreC;
+
     public TextView nombreInfo, descripccionInfo, distanciaInfo, lugarInfo, fechaInfo, telefonoInfo, emailInfo;
 
-    public static InfoCarrera newInstance() {return new InfoCarrera();}
+    public static InfoCarrera newInstance(String nombre) {
+        nombreC = nombre;
+        return new InfoCarrera();}
 
 
     @Override
@@ -42,7 +46,7 @@ public class InfoCarrera extends Fragment {
         telefonoInfo = (TextView)view.findViewById(R.id.telefonoInfo);
 
         //No se que mandar como parametro!!!!
-        Carrera carrera = CarreraDataManager.getInstance(getContext()).getCarreraById("copa");
+        Carrera carrera = CarreraDataManager.getInstance(getContext()).getCarreraById(nombreC);
 
         nombreInfo.setText(carrera.getNombre());
         descripccionInfo.setText(carrera.getDescripcion());

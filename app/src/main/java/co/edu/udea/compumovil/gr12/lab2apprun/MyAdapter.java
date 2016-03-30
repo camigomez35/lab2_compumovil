@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import co.edu.udea.compumovil.gr12.lab2apprun.listener.OnItemCarreraListener;
 import co.edu.udea.compumovil.gr12.lab2apprun.model.Carrera;
 
 /**
@@ -19,14 +20,16 @@ import co.edu.udea.compumovil.gr12.lab2apprun.model.Carrera;
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private ArrayList<Carrera> mDataset;
+    private OnItemCarreraListener listener;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<Carrera> myDataset) {
+    public MyAdapter(ArrayList<Carrera> myDataset, OnItemCarreraListener listener) {
         mDataset = myDataset;
+        this.listener = listener;
     }
 
     // Create new views (invoked by the layout manager)
@@ -43,7 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         if(mDataset.get(position) != null) {
@@ -52,6 +55,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             holder.tvFecha.setText(mDataset.get(position).getFecha());
             holder.tvLugar.setText(mDataset.get(position).getLugar());
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listener != null){
+                    listener.onItemClick(mDataset.get(position), holder.itemView, position);
+                }
+            }
+        });
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

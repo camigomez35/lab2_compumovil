@@ -1,10 +1,9 @@
 package co.edu.udea.compumovil.gr12.lab2apprun;
 
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,6 +21,8 @@ import co.edu.udea.compumovil.gr12.lab2apprun.persistence.UsuarioDataManager;
 public class Main2Activity extends AppCompatActivity
 implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener {
     public static String nombreUsuario = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,16 +56,6 @@ implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractio
             // Add the fragment to the 'fragment_container' FrameLayout
 
 
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
     }
 
@@ -144,11 +135,13 @@ implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractio
                 f = Acercade.newInstance();
                 break;
             case InfoCarrera.ID:
-                f = InfoCarrera.newInstance();
+                f = InfoCarrera.newInstance(parametros.getString("NOMBRE"));
                 break;
         }
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, f).commit();
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, f, f.getClass().getName()).addToBackStack(f.getClass().getName());
+        ft.commit();
     }
 
     public void sesionIniciada(int id)
@@ -168,8 +161,30 @@ implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractio
             setFragment(Acercade.ID, null, false);
         }else{
             setFragment(IniciarSesion.ID,null,false);
-            Toast.makeText(this, "Por favor inicie sesion", Toast.LENGTH_SHORT).show();
+            if (id == R.id.nav_carrera) {
+                Toast.makeText(this, R.string.inicieSesion, Toast.LENGTH_SHORT).show();
+            }
             return;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(String.format("%d", 0));
+            getSupportFragmentManager().popBackStack();
+            if (oldFragment != null) {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.remove(oldFragment);
+                ft.commit();
+            }
+        } else {
+            super.onBackPressed();
         }
     }
 }
