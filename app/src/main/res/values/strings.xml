@@ -34,4 +34,5 @@
     <string name="inicieSesion">Por favor inicie sesion</string>
     <string name="sesionTerminada">Se ha terminado sesion</string>
     <string name="noInicio">No se tiene sesion iniciada</string>
+    <string name="add_imagen">Agregar imagen</string>
 </resources>

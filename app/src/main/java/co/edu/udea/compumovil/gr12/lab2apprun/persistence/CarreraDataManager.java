@@ -26,7 +26,8 @@ public class CarreraDataManager extends DataManager {
             COL_LUGAR = 3,
             COL_FECHA = 4,
             COL_TELEFONO= 5,
-            COL_EMAIL = 6;
+            COL_EMAIL = 6,
+            COL_IMAGEN = 7;
 
     public static final String[] COLUMNS = {
             "nombre",
@@ -35,7 +36,8 @@ public class CarreraDataManager extends DataManager {
             "lugar" ,
             "fecha" ,
             "telefono" ,
-            "email"
+            "email",
+            "imagen"
     };
 
     private CarreraDataManager(Context c) {
@@ -62,6 +64,7 @@ public class CarreraDataManager extends DataManager {
         carrera.setFecha(cursor.getString(COL_FECHA));
         carrera.setLugar(cursor.getString(COL_LUGAR));
         carrera.setTelefono(cursor.getString(COL_TELEFONO));
+        carrera.setImagen(cursor.getString(COL_IMAGEN));
         return carrera;
     }
 
@@ -74,6 +77,7 @@ public class CarreraDataManager extends DataManager {
         cv.put(COLUMNS[COL_FECHA], carrera.getFecha());
         cv.put(COLUMNS[COL_LUGAR], carrera.getLugar());
         cv.put(COLUMNS[COL_TELEFONO], carrera.getTelefono());
+        cv.put(COLUMNS[COL_IMAGEN], carrera.getImagen());
         return cv;
     }
 
@@ -138,8 +142,9 @@ public class CarreraDataManager extends DataManager {
                 + COLUMNS[COL_DESCRIPCION] + ","
                 + COLUMNS[COL_LUGAR] + ","
                 + COLUMNS[COL_FECHA] + ","
-                + COLUMNS[COL_TELEFONO] + "," +
-                COLUMNS[COL_EMAIL], getContentValues(carrera));
+                + COLUMNS[COL_TELEFONO] + ","
+                + COLUMNS[COL_EMAIL] + ","
+                + COLUMNS[COL_IMAGEN], getContentValues(carrera));
         db.close();
         helper.close();
     }

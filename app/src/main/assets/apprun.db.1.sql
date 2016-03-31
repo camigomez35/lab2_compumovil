@@ -12,7 +12,8 @@ CREATE TABLE carrera(
     lugar TEXT,
     fecha TEXT,
     telefono TEXT,
-    email TEXT
+    email TEXT,
+    imagen TEXT
 );
 
 CREATE TABLE usuarioporcarrera(

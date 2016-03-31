@@ -11,6 +11,7 @@ public class Carrera {
     private String fecha;
     private String telefono;
     private String email;
+    private String imagen;
 
     public Carrera() {
     }
@@ -69,5 +70,13 @@ public class Carrera {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }

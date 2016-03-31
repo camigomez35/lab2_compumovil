@@ -1,7 +1,9 @@
 package co.edu.udea.compumovil.gr12.lab2apprun;
 
-import android.app.Notification;
+
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 import co.edu.udea.compumovil.gr12.lab2apprun.listener.OnItemCarreraListener;
@@ -54,6 +57,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             holder.tvDistancia.setText(String.valueOf(mDataset.get(position).getDistancia()));
             holder.tvFecha.setText(mDataset.get(position).getFecha());
             holder.tvLugar.setText(mDataset.get(position).getLugar());
+            Log.e("imagen", mDataset.get(position).getImagen());
+            holder.ivImagen.setImageURI(Uri.parse(mDataset.get(position).getImagen()));
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

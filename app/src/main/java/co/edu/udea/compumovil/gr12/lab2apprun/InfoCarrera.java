@@ -1,11 +1,13 @@
 package co.edu.udea.compumovil.gr12.lab2apprun;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import co.edu.udea.compumovil.gr12.lab2apprun.model.Carrera;
@@ -22,6 +24,7 @@ public class InfoCarrera extends Fragment {
     public static String nombreC;
 
     public TextView nombreInfo, descripccionInfo, distanciaInfo, lugarInfo, fechaInfo, telefonoInfo, emailInfo;
+    public ImageView ivFoto;
 
     public static InfoCarrera newInstance(String nombre) {
         nombreC = nombre;
@@ -44,6 +47,7 @@ public class InfoCarrera extends Fragment {
         fechaInfo = (TextView)view.findViewById(R.id.fechaInfo);
         emailInfo = (TextView)view.findViewById(R.id.emailInfo);
         telefonoInfo = (TextView)view.findViewById(R.id.telefonoInfo);
+        ivFoto = (ImageView)view.findViewById(R.id.iv_foto);
 
         //No se que mandar como parametro!!!!
         Carrera carrera = CarreraDataManager.getInstance(getContext()).getCarreraById(nombreC);
@@ -55,7 +59,7 @@ public class InfoCarrera extends Fragment {
         fechaInfo.setText(carrera.getFecha());
         emailInfo.setText(carrera.getEmail());
         telefonoInfo.setText(carrera.getTelefono());
-
+        ivFoto.setImageURI(Uri.parse(carrera.getImagen()));
     }
 
 }
